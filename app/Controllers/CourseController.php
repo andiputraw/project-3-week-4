@@ -46,7 +46,7 @@ class CourseController extends BaseController
             return redirect()->back()->withInput();
         }
         $this->course->save($data);
-        return redirect()->to('/courses');
+        return redirect()->to('/courses')->with('info', 'Course berhasil ditambahkan');
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class CourseController extends BaseController
             return redirect()->back()->withInput();
         }
         $this->course->update($id, $data);
-        return redirect()->to('/courses');
+        return redirect()->to('/courses')->with('info', "Course dengan id: $id berhasil diupdate");
     }
 
     public function show($id)
@@ -80,7 +80,7 @@ class CourseController extends BaseController
     {
         $this->course->delete($id);
         
-        return redirect()->to('/courses');
+        return redirect()->to('/courses')->with('info', "Course dengan id: $id berhasil dihapus");
     }
 
     public function enroll($id) {
@@ -102,6 +102,6 @@ class CourseController extends BaseController
             'enroll_date' => date('Y-m-d'),
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('info', "course $course[course_name] berhasil diambil");
     }
 }

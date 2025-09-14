@@ -5,6 +5,11 @@
 
     <h1>List Mahasiswa</h1>
 
+    <div>
+        <?= ((session()->getFlashdata("error") ?? "")) ?>
+        <?= ((session()->getFlashdata("info") ?? "")) ?>
+    </div>
+
     <a href="/mahasiswa/create">Tambah Mahasiswa</a>
     
     <form action="/mahasiswa" method="get">

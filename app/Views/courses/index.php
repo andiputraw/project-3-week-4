@@ -10,6 +10,7 @@
     <?php endif; ?>
     <div>
         <?= ((session()->getFlashdata("error") ?? "")) ?>
+        <?= ((session()->getFlashdata("info") ?? "")) ?>
     </div>
 
 

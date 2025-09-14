@@ -63,7 +63,7 @@ class MahasiswaController extends BaseController
         
         $keyword = $this->request->getGet("keyword");
         // $mahasiswa = model(Students::class)->like("nama_lengkap", $keyword ?? "")->findAll();
-        $mahasiswa = model(Students::class)->like("nim", $keyword ?? "")->findAll();
+        $mahasiswa = model(Students::class)->like("nim", $keyword ?? "")->orLike("nama_lengkap", $keyword ?? "")->findAll();
         
         return view("mahasiswa/index", ["mahasiswa" => $mahasiswa]);
     }
@@ -135,14 +135,18 @@ class MahasiswaController extends BaseController
         $userModel->update($currentMahasiswa['user_id'], $data);
 
         $mahasiswaModel->update($nim, $data);
-        return redirect()->to("/mahasiswa");
+        return redirect()->to("/mahasiswa")->with('info', "Mahasiswa $nim berhasil diupdate");
     }
 
     public function delete($nim) {
         $mahasiswaModel = model(Students::class);
-        $mahasiswaModel->deleteMahasiswa($nim);
+        $mhs = $mahasiswaModel->where('nim', $nim)->first();
+        $mahasiswaModel->delete($nim);
 
-        return redirect()->to("/mahasiswa");
+        $userModel = model(User::class);
+        $userModel->delete($mhs['user_id']);
+
+        return redirect()->to("/mahasiswa")->with('info', "Mahasiswa $nim berhasil dihapus");
     }
 
     public function show($nim) {

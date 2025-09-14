@@ -50,7 +50,7 @@ class AuthController extends BaseController {
          
 
         if(!$user || !password_verify($password, $user["password"])) {
-            return redirect()->back()->with("error", "username atau password salah");
+            return redirect()->back()->with("error", "username atau password salah")->withInput();
         }
 
         session()->set("role", $user['role']);
