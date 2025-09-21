@@ -25,71 +25,70 @@ username: admin
 password: admin
 
 
-# CodeIgniter 4 Application Starter
 
-## What is CodeIgniter?
+## ✨ Fitur
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+* **Manajemen Mahasiswa**: Admin dapat menambah, melihat, mengubah, dan menghapus data mahasiswa.
+* **Manajemen Mata Kuliah**: Admin dapat menambah, melihat, mengubah, dan menghapus data mata kuliah.
+* **Pengambilan Mata Kuliah**: Mahasiswa dapat mendaftar dan membatalkan pendaftaran pada mata kuliah yang tersedia.
+* **Pencarian**: Memudahkan pencarian data mahasiswa dan mata kuliah.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+---
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 💻 Teknologi yang Digunakan
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+* **PHP 8.1**
+* **CodeIgniter 4**
+* **MySQL**
+* **PicoCSS**
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## 📸 Screenshot
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+### Fitur General
+- Login
+![Tampilan Login](docs/login.png)
 
-## Setup
+- Logout
+![Tampilan Logout](docs/logout.png)
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### Admin
 
-## Important Change with index.php
+![Tampilan Admin](docs/admin_dashboard.png)
+*Tampilan Dashboard Admin*
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Fitur yang dapat diakses oleh Admin:
+- **Manajemen Mahasiswa**:
+    - Melihat semua data mahasiswa.
+      ![Tampilan data mahasiswa](docs/admin_mahasiswa.png)
+    - Menambahkan data mahasiswa baru.
+      ![Tampilan tambah mahasiswa](docs/admin_mahasiswa_tambah.png)
+    - Mengubah data mahasiswa.
+      ![Tampilan ubah mahasiswa](docs/admin_mahasisw_edit.png)
+    - Menghapus data mahasiswa.
+      ![Tampilan hapus mahasiswa](docs/admin_course_delete.png)
+    - Melihat Detail Data Mahasiswa
+      ![Tampilan detail mahasiswa](docs/admin_mahasiswa_delete.png)
+      
+- **Manajemen Mata Kuliah**:
+    - Melihat semua data mata kuliah.
+      ![Tampilan data mahasiswa](docs/admin_course.png)
+    - Menambahkan data mata kuliah baru.
+      ![Tampilan data tambah mahasiswa](docs/admin_course_tambah.png)
+    - Mengubah data mata kuliah.
+      ![Tampilan mengubah data mahasiswa](docs/admin_course_edit.png)
+    - Menghapus data mata kuliah.
+      ![Tampilan hapus data mahasiswa](docs/admin_course_delete.png)
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### Student
 
-**Please** read the user guide for a better explanation of how CI4 works!
+![Tampilan Student](docs/student_dashboard.png)
+*Tampilan Dashboard Mahasiswa*
 
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Fitur yang dapat diakses oleh Mahasiswa:
+- **Manajemen Mata Kuliah**:
+    - Melihat daftar mata kuliah yang tersedia.
+      ![Tapilan data matakuliah mahasiswa](docs/student_course_list.png)
+    - Mengambil mata kuliah (enroll).
+      ![Tampilan enroll matakuliah](docs/student_course_tambah.png)

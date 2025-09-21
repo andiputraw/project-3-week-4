@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Students;
 use App\Models\User;
+use CodeIgniter\Debug\Toolbar\Collectors\Logs;
+use CodeIgniter\HTTP\IncomingRequest;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use SebastianBergmann\CodeUnit\Mapper;
 
@@ -62,9 +64,15 @@ class MahasiswaController extends BaseController
     {
         
         $keyword = $this->request->getGet("keyword");
+        
         // $mahasiswa = model(Students::class)->like("nama_lengkap", $keyword ?? "")->findAll();
         $mahasiswa = model(Students::class)->like("nim", $keyword ?? "")->orLike("nama_lengkap", $keyword ?? "")->findAll();
         
+        if($this->request->isAJAX()) {
+            
+            return $this->response->setJSON($mahasiswa);
+        }
+
         return view("mahasiswa/index", ["mahasiswa" => $mahasiswa]);
     }
 
@@ -150,7 +158,7 @@ class MahasiswaController extends BaseController
     }
 
     public function show($nim) {
-          $mahasiswa = model(Students::class)->getMahasiswa($nim);
+          $mahasiswa = model(Students::class)->find($nim);
 
         return view("mahasiswa/detail", ["mahasiswa" => $mahasiswa]);
     }

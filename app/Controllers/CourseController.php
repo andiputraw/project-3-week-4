@@ -29,7 +29,10 @@ class CourseController extends BaseController
         $keyword = $this->request->getGet('keyword');  
         $data = $this->course->select('courses.course_id, course_name, credits, takes.enroll_date')->like('course_name', $keyword ?? '')->join('takes', 'takes.course_id = courses.course_id', 'left')->findAll();
         
-
+        if($this->request->isAJAX()) {
+   
+            return $this->response->setJSON($data);
+        }
         return view('courses/index', [
             'courses' => $data
         ]);
@@ -79,28 +82,43 @@ class CourseController extends BaseController
     public function delete($id)
     {
         $this->course->delete($id);
+
+
+        if($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'message' => 'success'
+            ]);
+        }
         
         return redirect()->to('/courses')->with('info', "Course dengan id: $id berhasil dihapus");
     }
 
-    public function enroll($id) {
+    public function enroll($idCsv) {
+        log_message("debug", $idCsv);
+        $ids = explode("-", $idCsv);
+        log_message("debug", join(" ", $ids) );
+
         $mhs = get_data_mahasiswa();
-        $course = $this->course->where('course_id', $id)->first();
-        $take = $this->take->where('course_id', $id)->where('nim', $mhs['nim'])->first();
+        $course = $this->course->whereIn('course_id', $ids)->findAll();
+        $take = $this->take->whereIn('course_id', $ids)->where('nim', $mhs['nim'])->findAll();
 
-        if(!$course) {
-            return redirect()->back()->with('error', 'id tidak ditemukan');
-        }        
-
-        if($take) {
+        if(count($take) > 0)  {
             return redirect()->back()->with('error', 'course sudah diambil');
         }
 
-        $this->take->insert([
+        $this->take->insertBatch(array_map(function($id) use ($mhs) {
+            return [
             'course_id' => $id,
             'nim' => $mhs['nim'],
             'enroll_date' => date('Y-m-d'),
-        ]);
+            ];
+        }, $ids));
+
+        if($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'message' => 'success'
+            ]);
+        }
 
         return redirect()->back()->with('info', "course $course[course_name] berhasil diambil");
     }

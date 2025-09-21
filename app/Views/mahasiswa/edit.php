@@ -7,7 +7,7 @@
 
     <h1>Edit Mahasiswa</h1>
 
-    <form action="/mahasiswa/<?= $mahasiswa["nim"] ?>" method="post">
+    <form action="/mahasiswa/<?= $mahasiswa["nim"] ?>" method="post" id="create-form">
         <?= validation_list_errors() ?>
         <input type="hidden" name="_method" value="PUT">
 
@@ -58,4 +58,29 @@
         <button type="submit">Edit Mahasiswa</button>
     </form>
 </main>
+
+<script>
+
+
+     const inputs = document.querySelectorAll('#create-form input')
+
+     
+     document.getElementById('create-form').addEventListener('submit', async (e) => {
+          e.preventDefault()
+
+          let nodes = []
+          for(const input of inputs) {
+               if (input.value == '') nodes.push(input)
+          }
+
+          if(nodes.length > 0) {
+               for(const node of nodes) {
+                    node.setAttribute('aria-invalid', 'true')
+               }
+               return
+          }
+          
+          e.target.submit()
+     })
+</script>
 <?= $this->endSection() ?>

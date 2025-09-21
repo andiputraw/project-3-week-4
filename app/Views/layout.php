@@ -11,8 +11,14 @@ use App\Models\User;
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
 >
+    <script src="<?= base_url() ?>/global.js"></script>
+    <script src="<?= base_url() ?>/index.js" defer></script>
 </head>
 <body>
+
+    <dialog id="modal">
+      
+    </dialog>
     <nav class="container">
         <ul>
             <li><a href="/">Home</a></li>
@@ -25,7 +31,9 @@ use App\Models\User;
             <?php endif;?>
         </ul>
         <ul>
-            <li><a href="/auth/logout">Logout</a></li>
+            <button class="secondary" onclick="SimpleModal('Apakah kamu yakin?', () => Redirect('/auth/logout'))" >
+                Logout
+            </button>
         </ul>
     </nav>
     <main class="container" >
